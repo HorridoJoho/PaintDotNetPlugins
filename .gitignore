@@ -1,0 +1,6 @@
+﻿*.dll
+*.suo
+*.user
+*.pdb
+/DirectionalBlur/bin
+/DirectionalBlur/obj
