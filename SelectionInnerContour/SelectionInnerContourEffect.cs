@@ -43,7 +43,7 @@ namespace SelectionInnerContour
         private Int32 _HasRendered;
 
         public SelectionInnerContourEffect()
-            : base(Properties.Resources.PluginName, null, SubmenuNames.Render, EffectFlags.Configurable | EffectFlags.SingleThreaded)
+            : base(Properties.Resources.PluginName, null, Properties.Resources.SubmenuName_Selection, EffectFlags.Configurable | EffectFlags.SingleThreaded)
         {
             Properties.Resources.Culture = System.Globalization.CultureInfo.CurrentUICulture;
         }

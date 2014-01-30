@@ -121,9 +121,12 @@
     <value>Kreisförmig</value>
   </data>
   <data name="PluginName" xml:space="preserve">
-    <value>Innere Kontur der Auswahl</value>
+    <value>Innere Kontur der Markierung</value>
   </data>
   <data name="StrengthString" xml:space="preserve">
     <value>Stärke</value>
+  </data>
+  <data name="SubmenuName_Selection" xml:space="preserve">
+    <value>Markierung</value>
   </data>
 </root>

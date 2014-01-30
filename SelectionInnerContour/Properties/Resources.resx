@@ -126,4 +126,7 @@
   <data name="StrengthString" xml:space="preserve">
     <value>Strength</value>
   </data>
+  <data name="SubmenuName_Selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
 </root>

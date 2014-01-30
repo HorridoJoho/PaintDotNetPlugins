@@ -86,5 +86,14 @@ namespace SelectionInnerContour.Properties {
                 return ResourceManager.GetString("StrengthString", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection.
+        /// </summary>
+        internal static string SubmenuName_Selection {
+            get {
+                return ResourceManager.GetString("SubmenuName_Selection", resourceCulture);
+            }
+        }
     }
 }
