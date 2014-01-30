@@ -4,3 +4,5 @@
 *.pdb
 /DirectionalBlur/bin
 /DirectionalBlur/obj
+/SelectionInnerContour/bin
+/SelectionInnerContour/obj

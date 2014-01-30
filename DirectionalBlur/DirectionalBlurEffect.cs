@@ -29,6 +29,7 @@ using PaintDotNet;
 using PaintDotNet.Effects;
 using PaintDotNet.IndirectUI;
 using PaintDotNet.PropertySystem;
+using PDNP.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

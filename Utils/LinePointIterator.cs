@@ -27,9 +27,9 @@
  */
 using System;
 
-namespace DirectionalBlur
+namespace PDNP.Utils
 {
-    sealed class LinePointIterator
+    public sealed class LinePointIterator
     {
 	    // src is moved towards dst in Next()
 	    private int _srcX;

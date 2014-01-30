@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalBlur", "DirectionalBlur\DirectionalBlur.csproj", "{732279DD-B6BB-4DA9-B6EE-51CB6B27BD18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectionInnerContour", "SelectionInnerContour\SelectionInnerContour.csproj", "{2B1B573A-190B-443F-9863-94BAFC60B044}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{732279DD-B6BB-4DA9-B6EE-51CB6B27BD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{732279DD-B6BB-4DA9-B6EE-51CB6B27BD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{732279DD-B6BB-4DA9-B6EE-51CB6B27BD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B1B573A-190B-443F-9863-94BAFC60B044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1B573A-190B-443F-9863-94BAFC60B044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1B573A-190B-443F-9863-94BAFC60B044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1B573A-190B-443F-9863-94BAFC60B044}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
