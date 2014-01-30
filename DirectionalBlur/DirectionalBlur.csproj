@@ -52,9 +52,6 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Utils\CirclePointIterator.cs">
-      <Link>CirclePointIterator.cs</Link>
-    </Compile>
     <Compile Include="..\Utils\LinePointIterator.cs">
       <Link>LinePointIterator.cs</Link>
     </Compile>

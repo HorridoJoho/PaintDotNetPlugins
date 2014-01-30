@@ -27,8 +27,8 @@
  */
 using PaintDotNet;
 using PaintDotNet.Effects;
+using PaintDotNet.IndirectUI;
 using PaintDotNet.PropertySystem;
-using PDNP.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,6 +40,9 @@ namespace SelectionInnerContour
     {
         private Int32 _Strength;
         private Boolean _Circular;
+        private Boolean _AntiAliasing;
+        private SolidBrush _RenderBrush;
+
         private Int32 _HasRendered;
 
         public SelectionInnerContourEffect()
@@ -48,7 +51,21 @@ namespace SelectionInnerContour
             Properties.Resources.Culture = System.Globalization.CultureInfo.CurrentUICulture;
         }
 
-        private bool IsStartingPoint(PdnRegion region, Int32 x, Int32 y)
+        private void _SetupRenderBrush(Color newColor)
+        {
+            if (_RenderBrush != null && _RenderBrush.Color != newColor)
+            {
+                _RenderBrush.Dispose();
+                _RenderBrush = null;
+            }
+
+            if (_RenderBrush == null)
+            {
+                _RenderBrush = new SolidBrush(newColor);
+            }
+        }
+
+        private bool _IsStartingPoint(PdnRegion region, Int32 x, Int32 y)
         {
             if (
                 !region.IsVisible(x - 1, y) ||
@@ -66,16 +83,32 @@ namespace SelectionInnerContour
         {
             List<Property> props = new List<Property>();
 
-            props.Add(new Int32Property(Properties.Resources.StrengthString, 1, 1, 20));
+            props.Add(new Int32Property(Properties.Resources.StrengthString, 1, 1, 100));
+            props.Add(new Int32Property(Properties.Resources.ColorString, 0, 0, 16777215));
             props.Add(new BooleanProperty(Properties.Resources.CircularString, false));
+            props.Add(new BooleanProperty(Properties.Resources.AntiAliasingString, false));
 
             return new PropertyCollection(props);
+        }
+
+        protected override ControlInfo OnCreateConfigUI(PropertyCollection props)
+        {
+            ControlInfo configUi = CreateDefaultConfigUI(props);
+
+            configUi.SetPropertyControlType(Properties.Resources.ColorString, PropertyControlType.ColorWheel);
+
+            return configUi;
         }
 
         protected override void OnSetRenderInfo(PropertyBasedEffectConfigToken newToken, RenderArgs dstArgs, RenderArgs srcArgs)
         {
             _Strength = newToken.GetProperty<Int32Property>(Properties.Resources.StrengthString).Value;
+            _AntiAliasing = newToken.GetProperty<BooleanProperty>(Properties.Resources.AntiAliasingString).Value;
             _Circular = newToken.GetProperty<BooleanProperty>(Properties.Resources.CircularString).Value;
+
+            // brush setup
+            Int32 color = newToken.GetProperty<Int32Property>(Properties.Resources.ColorString).Value;
+            _SetupRenderBrush(ColorBgra.FromOpaqueInt32(color));
 
             _HasRendered = 0;
             
@@ -91,9 +124,18 @@ namespace SelectionInnerContour
 
             PdnRegion region = EnvironmentParameters.GetSelection(SrcArgs.Surface.Bounds);
             renderRects = region.GetRegionScansReadOnlyInt();
-            Surface dst = DstArgs.Surface;
 
-            dst.CopySurface(SrcArgs.Surface, region);
+            DstArgs.Surface.CopySurface(SrcArgs.Surface, region);
+
+            DstArgs.Graphics.Clip = region.GetRegionReadOnly();
+            if (_AntiAliasing)
+            {
+                DstArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            }
+            else
+            {
+                DstArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            }
 
             foreach (Rectangle renderRect in renderRects)
             {
@@ -101,18 +143,23 @@ namespace SelectionInnerContour
                 {
                     for (Int32 x = renderRect.Left; x < renderRect.Right; ++x)
                     {
-                        if (!IsStartingPoint(region, x, y))
+                        if (IsCancelRequested)
+                        {
+                            return;
+                        }
+
+                        if (!_IsStartingPoint(region, x, y))
                         {
                             continue;
                         }
 
                         if (_Circular)
                         {
-                            dst.FillCircle(EnvironmentParameters.PrimaryColor, x, y, _Strength - 1, region);
+                            DstArgs.Graphics.FillEllipse(_RenderBrush, x - (_Strength - 1), y - (_Strength - 1), _Strength * 2 - 1, _Strength * 2 - 1);
                         }
                         else
                         {
-                            dst.FillRect(EnvironmentParameters.PrimaryColor, x - (_Strength - 1), y - (_Strength - 1), _Strength * 2 - 1, _Strength * 2 - 1, region);
+                            DstArgs.Graphics.FillRectangle(_RenderBrush, x - (_Strength - 1), y - (_Strength - 1), _Strength * 2 - 1, _Strength * 2 - 1);
                         }
                     }
                 }

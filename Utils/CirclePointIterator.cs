@@ -94,7 +94,7 @@ namespace PDNP.Utils
                         _OutY = _SrcY;
                         break;
                     case 3:
-                        _OutX = _SrcX + _Radius;
+                        _OutX = _SrcX - _Radius;
                         _OutY = _SrcY;
                         break;
                 }

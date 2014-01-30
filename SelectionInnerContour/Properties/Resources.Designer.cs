@@ -61,6 +61,15 @@ namespace SelectionInnerContour.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anti-Aliasing.
+        /// </summary>
+        internal static string AntiAliasingString {
+            get {
+                return ResourceManager.GetString("AntiAliasingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Circular.
         /// </summary>
         internal static string CircularString {
@@ -70,7 +79,16 @@ namespace SelectionInnerContour.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inner Contour of Selection.
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        internal static string ColorString {
+            get {
+                return ResourceManager.GetString("ColorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inner Contour.
         /// </summary>
         internal static string PluginName {
             get {
