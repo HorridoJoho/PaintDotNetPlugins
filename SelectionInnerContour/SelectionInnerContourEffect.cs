@@ -32,6 +32,7 @@ using PaintDotNet.PropertySystem;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Threading;
 
 namespace SelectionInnerContour
@@ -71,7 +72,11 @@ namespace SelectionInnerContour
                 !region.IsVisible(x - 1, y) ||
                 !region.IsVisible(x + 1, y) ||
                 !region.IsVisible(x, y - 1) ||
-                !region.IsVisible(x, y + 1))
+                !region.IsVisible(x, y + 1) ||
+                !region.IsVisible(x + 1, y + 1) ||
+                !region.IsVisible(x + 1, y - 1) ||
+                !region.IsVisible(x - 1, y + 1) ||
+                !region.IsVisible(x - 1, y - 1))
             {
                 return true;
             }
@@ -128,6 +133,8 @@ namespace SelectionInnerContour
             DstArgs.Surface.CopySurface(SrcArgs.Surface, region);
 
             DstArgs.Graphics.Clip = region.GetRegionReadOnly();
+            SmoothingMode orgSmoothingMode = DstArgs.Graphics.SmoothingMode;
+
             if (_AntiAliasing)
             {
                 DstArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -137,32 +144,42 @@ namespace SelectionInnerContour
                 DstArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             }
 
-            foreach (Rectangle renderRect in renderRects)
+            try
             {
-                for (Int32 y = renderRect.Top; y < renderRect.Bottom; ++y)
+                foreach (Rectangle renderRect in renderRects)
                 {
-                    for (Int32 x = renderRect.Left; x < renderRect.Right; ++x)
+                    for (Int32 y = renderRect.Top; y < renderRect.Bottom; ++y)
                     {
-                        if (IsCancelRequested)
+                        for (Int32 x = renderRect.Left; x < renderRect.Right; ++x)
                         {
-                            return;
-                        }
+                            if (IsCancelRequested)
+                            {
+                                return;
+                            }
 
-                        if (!_IsStartingPoint(region, x, y))
-                        {
-                            continue;
-                        }
+                            if (!_IsStartingPoint(region, x, y))
+                            {
+                                continue;
+                            }
 
-                        if (_Circular)
-                        {
-                            DstArgs.Graphics.FillEllipse(_RenderBrush, x - (_Strength - 1), y - (_Strength - 1), _Strength * 2 - 1, _Strength * 2 - 1);
-                        }
-                        else
-                        {
-                            DstArgs.Graphics.FillRectangle(_RenderBrush, x - (_Strength - 1), y - (_Strength - 1), _Strength * 2 - 1, _Strength * 2 - 1);
+                            Rectangle rect = new Rectangle(x - (_Strength - 1), y - (_Strength - 1), _Strength * 2 - 1, _Strength * 2 - 1);
+
+                            if (_Circular)
+                            {
+                                DstArgs.Graphics.FillEllipse(_RenderBrush, rect);
+                            }
+                            else
+                            {
+                                DstArgs.Graphics.FillRectangle(_RenderBrush, rect);
+                            }
                         }
                     }
                 }
+            }
+            finally
+            {
+                DstArgs.Graphics.ResetClip();
+                DstArgs.Graphics.SmoothingMode = orgSmoothingMode;
             }
         }
     }
