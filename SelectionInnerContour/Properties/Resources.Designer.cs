@@ -70,20 +70,110 @@ namespace SelectionInnerContour.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Circular.
+        ///   Looks up a localized string similar to Background Color.
         /// </summary>
-        internal static string CircularString {
+        internal static string BackgroundColorString {
             get {
-                return ResourceManager.GetString("CircularString", resourceCulture);
+                return ResourceManager.GetString("BackgroundColorString", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color.
+        ///   Looks up a localized string similar to Background Opacity.
         /// </summary>
-        internal static string ColorString {
+        internal static string BackgroundOpacityString {
             get {
-                return ResourceManager.GetString("ColorString", resourceCulture);
+                return ResourceManager.GetString("BackgroundOpacityString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreground Color.
+        /// </summary>
+        internal static string ForegroundColorString {
+            get {
+                return ResourceManager.GetString("ForegroundColorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreground Opacity.
+        /// </summary>
+        internal static string ForegroundOpacityString {
+            get {
+                return ResourceManager.GetString("ForegroundOpacityString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gradient Angle.
+        /// </summary>
+        internal static string GradientAngleString {
+            get {
+                return ResourceManager.GetString("GradientAngleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hatch Style.
+        /// </summary>
+        internal static string HatchStyleString {
+            get {
+                return ResourceManager.GetString("HatchStyleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dash Cap.
+        /// </summary>
+        internal static string PenDashCapString {
+            get {
+                return ResourceManager.GetString("PenDashCapString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dash Style.
+        /// </summary>
+        internal static string PenDashStyleString {
+            get {
+                return ResourceManager.GetString("PenDashStyleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Cap.
+        /// </summary>
+        internal static string PenEndCapString {
+            get {
+                return ResourceManager.GetString("PenEndCapString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filling.
+        /// </summary>
+        internal static string PenFillingString {
+            get {
+                return ResourceManager.GetString("PenFillingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Cap.
+        /// </summary>
+        internal static string PenStartCapString {
+            get {
+                return ResourceManager.GetString("PenStartCapString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        internal static string PenWidthString {
+            get {
+                return ResourceManager.GetString("PenWidthString", resourceCulture);
             }
         }
         
@@ -93,15 +183,6 @@ namespace SelectionInnerContour.Properties {
         internal static string PluginName {
             get {
                 return ResourceManager.GetString("PluginName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Strength.
-        /// </summary>
-        internal static string StrengthString {
-            get {
-                return ResourceManager.GetString("StrengthString", resourceCulture);
             }
         }
         

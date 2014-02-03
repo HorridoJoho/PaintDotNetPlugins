@@ -33,20 +33,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PaintDotNet.Base, Version=3.511.4977.23436, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\PaintDotNet.Base.DLL</HintPath>
-      <Private>False</Private>
+    <Reference Include="PaintDotNet.Base">
+      <HintPath>..\deps\PaintDotNet.Base.DLL</HintPath>
     </Reference>
-    <Reference Include="PaintDotNet.Core, Version=3.511.4977.23444, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\PaintDotNet.Core.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="PaintDotNet.Core">
+      <HintPath>..\deps\PaintDotNet.Core.dll</HintPath>
     </Reference>
-    <Reference Include="PaintDotNet.Effects, Version=3.511.4977.23447, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\PaintDotNet.Effects.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="PaintDotNet.Effects">
+      <HintPath>..\deps\PaintDotNet.Effects.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

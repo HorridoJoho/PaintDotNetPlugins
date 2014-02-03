@@ -112,25 +112,52 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AntiAliasingString" xml:space="preserve">
     <value>Kantenglättung</value>
   </data>
-  <data name="CircularString" xml:space="preserve">
-    <value>Kreisförmig</value>
+  <data name="BackgroundColorString" xml:space="preserve">
+    <value>Hintergrund Farbe</value>
   </data>
-  <data name="ColorString" xml:space="preserve">
-    <value>Farbe</value>
+  <data name="BackgroundOpacityString" xml:space="preserve">
+    <value>Hintergrund Sichtbarkeit</value>
+  </data>
+  <data name="ForegroundColorString" xml:space="preserve">
+    <value>Vordergrund Farbe</value>
+  </data>
+  <data name="ForegroundOpacityString" xml:space="preserve">
+    <value>Vordergrund Sichtbarkeit</value>
+  </data>
+  <data name="GradientAngleString" xml:space="preserve">
+    <value>Gradient Winkel</value>
+  </data>
+  <data name="HatchStyleString" xml:space="preserve">
+    <value>Hatch Style</value>
+  </data>
+  <data name="PenDashCapString" xml:space="preserve">
+    <value>Strich Cap</value>
+  </data>
+  <data name="PenDashStyleString" xml:space="preserve">
+    <value>Strich Stil</value>
+  </data>
+  <data name="PenEndCapString" xml:space="preserve">
+    <value>Schluss Cap</value>
+  </data>
+  <data name="PenFillingString" xml:space="preserve">
+    <value>Füllung</value>
+  </data>
+  <data name="PenStartCapString" xml:space="preserve">
+    <value>Anfangs Cap</value>
+  </data>
+  <data name="PenWidthString" xml:space="preserve">
+    <value>Breite</value>
   </data>
   <data name="PluginName" xml:space="preserve">
     <value>Innere Kontur</value>
-  </data>
-  <data name="StrengthString" xml:space="preserve">
-    <value>Stärke</value>
   </data>
   <data name="SubmenuName_Selection" xml:space="preserve">
     <value>Markierung</value>
