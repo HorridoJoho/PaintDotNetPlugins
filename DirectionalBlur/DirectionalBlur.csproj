@@ -35,12 +35,20 @@
   <ItemGroup>
     <Reference Include="PaintDotNet.Base">
       <HintPath>..\deps\PaintDotNet.Base.DLL</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PaintDotNet.Core">
       <HintPath>..\deps\PaintDotNet.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PaintDotNet.Data, Version=3.511.4977.23447, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\deps\PaintDotNet.Data.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PaintDotNet.Effects">
       <HintPath>..\deps\PaintDotNet.Effects.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

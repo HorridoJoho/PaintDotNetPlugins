@@ -56,13 +56,17 @@ namespace DirectionalBlur
             }
         }
 
-        private void _AddToColorChannels(ref UInt32 b, ref UInt32 g, ref UInt32 r, ref UInt32 a, ref UInt32 divisor, ColorBgra color)
+        private void _AddToColorChannels(ref UInt32 b, ref UInt32 g, ref UInt32 r, ref UInt32 a, ref UInt32 divisor, ref UInt32 divisorA, ColorBgra color)
         {
-            b += color.B;
-            g += color.G;
-            r += color.R;
-            a += color.A;
-            ++divisor;
+            if (color.A > 0)
+            {
+                b += color.B;
+                g += color.G;
+                r += color.R;
+                a += color.A;
+                ++divisor;
+            }
+            ++divisorA;
         }
 
         private void _ApplyAngleOffset(ref Double AngleDegrees)
@@ -160,6 +164,7 @@ namespace DirectionalBlur
                         UInt32 newRed = color.R;
                         UInt32 newAlpha = color.A;
                         UInt32 divisor = 1;
+                        UInt32 divisorA = 1;
 
                         foreach (BlurDescriptor BlurDescr in _BlurDescriptors)
                         {
@@ -177,16 +182,17 @@ namespace DirectionalBlur
                                 if (src.Bounds.Contains(lpi.X, lpi.Y))
                                 {
                                     // accumulate b/g/r/a values
-                                    _AddToColorChannels(ref newBlue, ref newGreen, ref newRed, ref newAlpha, ref divisor, src[lpi.X, lpi.Y]);
+                                    _AddToColorChannels(ref newBlue, ref newGreen, ref newRed, ref newAlpha, ref divisor, ref divisorA, src[lpi.X, lpi.Y]);
                                 }
                             }
                         }
+                        
 
                         newBlue /= divisor;
                         newGreen /= divisor;
                         newRed /= divisor;
-                        newAlpha /= divisor;
-
+                        newAlpha /= divisorA;
+                        
                         // Take the average from accumulated b/g/r/a as the destination color
                         dst[x, y] = ColorBgra.FromBgra((Byte)newBlue, (Byte)newGreen, (Byte)newRed, (Byte)newAlpha);
                     }
