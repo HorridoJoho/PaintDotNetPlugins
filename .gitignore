@@ -1,7 +1,10 @@
-﻿*.suo
+﻿# File extensions
 *.user
+*.suo
 *.sdf
 *.opensdf
+
+# Directories
 /DirectionalBlur/bin
 /DirectionalBlur/obj
 /SelectionInnerContour/bin

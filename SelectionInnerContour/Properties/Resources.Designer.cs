@@ -88,6 +88,15 @@ namespace SelectionInnerContour.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compositing.
+        /// </summary>
+        internal static string CompositingString {
+            get {
+                return ResourceManager.GetString("CompositingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreground Color.
         /// </summary>
         internal static string ForegroundColorString {
@@ -120,6 +129,15 @@ namespace SelectionInnerContour.Properties {
         internal static string HatchStyleString {
             get {
                 return ResourceManager.GetString("HatchStyleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Dash Style.
+        /// </summary>
+        internal static string PenCustomDashStyleString {
+            get {
+                return ResourceManager.GetString("PenCustomDashStyleString", resourceCulture);
             }
         }
         
@@ -192,6 +210,24 @@ namespace SelectionInnerContour.Properties {
         internal static string SubmenuName_Selection {
             get {
                 return ResourceManager.GetString("SubmenuName_Selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Image Path.
+        /// </summary>
+        internal static string TextureImagePathString {
+            get {
+                return ResourceManager.GetString("TextureImagePathString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Repeat.
+        /// </summary>
+        internal static string TextureRepeatString {
+            get {
+                return ResourceManager.GetString("TextureRepeatString", resourceCulture);
             }
         }
     }
