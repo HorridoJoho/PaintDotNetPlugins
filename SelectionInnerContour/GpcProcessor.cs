@@ -10,11 +10,11 @@ namespace SelectionInnerContour
         private class ClipRectsData
         {
             public readonly Gpc.ClipOp ClipOp;
-            public readonly SelectionInnerContourEffect Effect;
+            public readonly SicEffect Effect;
             public readonly RectangleF[] Rects;
             public readonly Gpc.IPolygon[] Polygons;
 
-            internal ClipRectsData(Gpc.ClipOp clipOp, SelectionInnerContourEffect effect, RectangleF[] rects, Int32 nClippers)
+            internal ClipRectsData(Gpc.ClipOp clipOp, SicEffect effect, RectangleF[] rects, Int32 nClippers)
             {
                 ClipOp = clipOp;
                 Effect = effect;
@@ -96,7 +96,7 @@ namespace SelectionInnerContour
             clipperData.ClipData.Polygons[clipperData.ClipperIndex] = finalPolygon;
         }
 
-        public static Gpc.IPolygon ClipRects(RectangleF[] rects, Gpc.ClipOp clipOp, Gpc.GraphicsPathType pathType, SelectionInnerContourEffect effect)
+        public static Gpc.IPolygon ClipRects(RectangleF[] rects, Gpc.ClipOp clipOp, Gpc.GraphicsPathType pathType, SicEffect effect)
         {
             Int32 nClippers = Math.Max(Environment.ProcessorCount - 1, 1);
             nClippers = Math.Min(nClippers, rects.Length);

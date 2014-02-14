@@ -51,25 +51,101 @@
       <HintPath>..\deps\PaintDotNet.Effects.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PaintDotNet.SystemLayer">
+      <HintPath>..\deps\PaintDotNet.SystemLayer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HsvAlphaColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HsvAlphaColorPicker.Designer.cs">
+      <DependentUpon>HsvAlphaColorPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HsvColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HsvColorPicker.Designer.cs">
+      <DependentUpon>HsvColorPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HsvColorWheel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HsvColorWheel.Designer.cs">
+      <DependentUpon>HsvColorWheel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NeutralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NeutralResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SicAngleChooserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SicAngleChooserControl.Designer.cs">
+      <DependentUpon>SicAngleChooserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SicAngleChooserExControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SicAngleChooserExControl.Designer.cs">
+      <DependentUpon>SicAngleChooserExControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SicConfigDialog_.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SicConfigDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SicConfigDialog.Designer.cs">
+      <DependentUpon>SicConfigDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SicToken.cs" />
     <Compile Include="GpcProcessor.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SelectionInnerContourEffect.cs" />
+    <Compile Include="SicEffect.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HsvAlphaColorPicker.resx">
+      <DependentUpon>HsvAlphaColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HsvColorPicker.resx">
+      <DependentUpon>HsvColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HsvColorWheel.resx">
+      <DependentUpon>HsvColorWheel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NeutralResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NeutralResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx" />
+    <EmbeddedResource Include="SicAngleChooserControl.resx">
+      <DependentUpon>SicAngleChooserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SicAngleChooserExControl.resx">
+      <DependentUpon>SicAngleChooserExControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SicConfigDialog.resx">
+      <DependentUpon>SicConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\color_trans_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
