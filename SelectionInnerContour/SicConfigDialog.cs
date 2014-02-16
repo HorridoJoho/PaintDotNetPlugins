@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing.Drawing2D;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using PaintDotNet.Effects;
+using System.Collections.Generic;
 
 namespace SelectionInnerContour
 {
@@ -24,7 +19,9 @@ namespace SelectionInnerContour
 		private void FinishTokenUpdateWhenNotIniting()
 		{
 			if (!_InitDialog)
+			{
 				FinishTokenUpdate();
+			}
 		}
 
 		private void SicConfigDialog_Load(object sender, EventArgs e)
@@ -54,16 +51,29 @@ namespace SelectionInnerContour
 				tcFilling.SelectedIndex = token.SelectedTab;
 
 				////////////////////////////////////////////////////////////////////////////////
-				// Color Filling
+				// Color
 				////////////////////////////////////////////////////////////////////////////////
-				hsvacpColorFillingColor.Color = token.ColorFilling_Color;
+				hsvacpColorFillingColor.Color = token.Color_Color;
 
 				////////////////////////////////////////////////////////////////////////////////
-				// Hatch Filling
+				// Hatch
 				////////////////////////////////////////////////////////////////////////////////
-				hsvacpHatchFillingBackColor.Color = token.HatchFilling_BackColor;
-				hsvacpHatchFillingForeColor.Color = token.HatchFilling_ForeColor;
-				cbHatchFillingStyle.SelectedItem = token.HatchFilling_Style;
+				hsvacpHatchFillingBackColor.Color = token.Hatch_BackColor;
+				hsvacpHatchFillingForeColor.Color = token.Hatch_ForeColor;
+				cbHatchFillingStyle.SelectedItem = token.Hatch_Style;
+
+				////////////////////////////////////////////////////////////////////////////////
+				// Linear Gradient
+				////////////////////////////////////////////////////////////////////////////////
+				clbLinearGradientFillingColors.RemoveAllControlItems();
+				foreach (Color col in token.LinearGradient_Colors)
+				{
+					GradientColorPicker controlItem = new GradientColorPicker();
+					controlItem.Color = col;
+					clbLinearGradientFillingColors.AddControlItem(controlItem);
+				}
+				awcLinearGradientFillingAngle.Value = token.LinearGradient_Angle;
+				cbLinearGradientFillingGammaCorrection.Checked = token.LinearGradient_GammaCorrection;
 			}
 			finally
 			{
@@ -82,16 +92,27 @@ namespace SelectionInnerContour
 			token.SelectedTab = tcFilling.SelectedIndex;
 
 			////////////////////////////////////////////////////////////////////////////////
-			// Color Filling
+			// Color
 			////////////////////////////////////////////////////////////////////////////////
-			token.ColorFilling_Color = hsvacpColorFillingColor.Color;
+			token.Color_Color = hsvacpColorFillingColor.Color;
 
 			////////////////////////////////////////////////////////////////////////////////
-			// Hatch Filling
+			// Hatch
 			////////////////////////////////////////////////////////////////////////////////
-			token.HatchFilling_BackColor = hsvacpHatchFillingBackColor.Color;
-			token.HatchFilling_ForeColor = hsvacpHatchFillingForeColor.Color;
-			token.HatchFilling_Style = (HatchStyle)cbHatchFillingStyle.SelectedItem;
+			token.Hatch_BackColor = hsvacpHatchFillingBackColor.Color;
+			token.Hatch_ForeColor = hsvacpHatchFillingForeColor.Color;
+			token.Hatch_Style = (HatchStyle)cbHatchFillingStyle.SelectedItem;
+
+			////////////////////////////////////////////////////////////////////////////////
+			// Linear Gradient
+			////////////////////////////////////////////////////////////////////////////////
+			List<Color> colors = new List<Color>();
+			clbLinearGradientFillingColors.ForEach((CustomControls.ControlListBoxItem item) => {
+				colors.Add(((GradientColorPicker)item).Color);
+			});
+			token.LinearGradient_Colors = colors.ToArray();
+			token.LinearGradient_Angle = awcLinearGradientFillingAngle.Value;
+			token.LinearGradient_GammaCorrection = cbLinearGradientFillingGammaCorrection.Checked;
 		}
 
 		private void btnCancel_Click(object sender, EventArgs e)
@@ -161,6 +182,36 @@ namespace SelectionInnerContour
 		private void cbHatchFillingStyle_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			FinishTokenUpdateWhenNotIniting();
+		}
+
+		private void clbLinearGradientFillingColors_ItemAdded(object sender, CustomControls.ControlListBoxItem item)
+		{
+			FinishTokenUpdateWhenNotIniting();
+		}
+
+		private void clbLinearGradientFillingColors_ItemModified(object sender, CustomControls.ControlListBoxItem item)
+		{
+			FinishTokenUpdateWhenNotIniting();
+		}
+
+		private void clbLinearGradientFillingColors_ItemRemoved(object sender, CustomControls.ControlListBoxItem item)
+		{
+			FinishTokenUpdateWhenNotIniting();
+		}
+
+		private void awcLinearGradientFillingAngle_ValueChangedEvent(object sender)
+		{
+			FinishTokenUpdateWhenNotIniting();
+		}
+
+		private void cbLinearGradientFillingGammaCorrection_CheckedChanged(object sender, EventArgs e)
+		{
+			FinishTokenUpdateWhenNotIniting();
+		}
+
+		private void btnLinearGradientFillingAddColor_Click(object sender, EventArgs e)
+		{
+			clbLinearGradientFillingColors.AddControlItem(new GradientColorPicker());
 		}
 	}
 }

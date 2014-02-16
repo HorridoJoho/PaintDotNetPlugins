@@ -75,10 +75,11 @@ namespace SelectionInnerContour
 
         protected override void OnSetRenderInfo(SicToken token, RenderArgs dstArgs, RenderArgs srcArgs)
         {
+			PdnRegion selection = EnvironmentParameters.GetSelection(srcArgs.Surface.Bounds);
+
             if (_Path == null)
             {
-                PdnRegion region = EnvironmentParameters.GetSelection(srcArgs.Surface.Bounds);
-                Gpc.IPolygon poly = GpcProcessor.ClipRects(region.GetRegionScans(), Gpc.ClipOp.Union, Gpc.GraphicsPathType.Polygons, this);
+                Gpc.IPolygon poly = GpcProcessor.ClipRects(selection.GetRegionScans(), Gpc.ClipOp.Union, Gpc.GraphicsPathType.Polygons, this);
                 if (poly == null)
                 {
                     // this only happens when the config ui got closed
@@ -95,11 +96,48 @@ namespace SelectionInnerContour
 
 			if (token.SelectedTab == (Int32)PenFilling.Color)
 			{
-				_ContourPen = new Pen(token.ColorFilling_Color);
+				_ContourPen = new Pen(token.Color_Color);
 			}
 			else if (token.SelectedTab == (Int32)PenFilling.Hatch)
 			{
-				_ContourPen = new Pen(new HatchBrush(token.HatchFilling_Style, token.HatchFilling_ForeColor, token.HatchFilling_BackColor));
+				_ContourPen = new Pen(new HatchBrush(token.Hatch_Style, token.Hatch_ForeColor, token.Hatch_BackColor));
+			}
+			else if (token.SelectedTab == (Int32)PenFilling.LinearGradient && token.LinearGradient_Colors.Length > 1)
+			{
+				LinearGradientBrush brush = new LinearGradientBrush(_Path.GetBounds(), Color.Black, Color.Black, (Single)token.LinearGradient_Angle, true);
+				brush.GammaCorrection = token.LinearGradient_GammaCorrection;
+
+				if (token.LinearGradient_Colors.Length == 2)
+				{
+					brush.LinearColors = token.LinearGradient_Colors;
+				}
+				else
+				{
+					ColorBlend blend = new ColorBlend(token.LinearGradient_Colors.Length);
+					blend.Colors = token.LinearGradient_Colors;
+					Single[] positions = new Single[token.LinearGradient_Colors.Length];
+					Single step = 1.0f / positions.Length;
+					Single pos = 0.0f;
+					for (int i = 0;i < positions.Length;++i)
+					{
+						if (i == positions.Length - 1)
+						{
+							positions[i] = 1.0f;
+						}
+						else
+						{
+							positions[i] = pos;
+						}
+						pos += step;
+					}
+					blend.Positions = positions;
+					brush.InterpolationColors = blend;
+				}
+				_ContourPen = new Pen(brush);
+			}
+			else
+			{
+				_ContourPen = new Pen(token.Color_Color);
 			}
 
 			_ContourPen.Width = token.Width;
