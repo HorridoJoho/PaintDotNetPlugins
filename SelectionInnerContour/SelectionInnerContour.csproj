@@ -36,7 +36,7 @@
     </Reference>
     <Reference Include="GpcDotNet.Interface">
       <HintPath>..\deps\GpcDotNet.Interface.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PaintDotNet.Base">
       <HintPath>..\deps\PaintDotNet.Base.DLL</HintPath>
@@ -139,6 +139,12 @@
     <None Include="Resources\color_trans_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(SolutionDir)LICENSE" "$(ProjectDir)$(OutDir)"
+copy "$(SolutionDir)deps\GPC_LICENSE" "$(ProjectDir)$(OutDir)"
+copy "$(SolutionDir)deps\GpcDotNet.AMD64.dll" "$(ProjectDir)$(OutDir)"
+copy "$(SolutionDir)deps\GpcDotNet.IA32.dll" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

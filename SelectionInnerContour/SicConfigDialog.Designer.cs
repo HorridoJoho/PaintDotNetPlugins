@@ -467,7 +467,7 @@
 			// 
 			this.clbLinearGradientFillingColors.AutoScroll = true;
 			this.clbLinearGradientFillingColors.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.clbLinearGradientFillingColors.ItemHeight = 100;
+			this.clbLinearGradientFillingColors.OrientationLength = 100;
 			this.clbLinearGradientFillingColors.Location = new System.Drawing.Point(6, 16);
 			this.clbLinearGradientFillingColors.Name = "clbLinearGradientFillingColors";
 			this.clbLinearGradientFillingColors.Size = new System.Drawing.Size(260, 284);
