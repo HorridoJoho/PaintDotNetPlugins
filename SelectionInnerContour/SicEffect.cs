@@ -94,49 +94,110 @@ namespace SelectionInnerContour
                 _ContourPen.Dispose();
             }
 
-			if (token.SelectedTab == (Int32)PenFilling.Color)
+			if (Enum.IsDefined(typeof(PenFilling), token.SelectedTab))
 			{
-				_ContourPen = new Pen(token.Color_Color);
-			}
-			else if (token.SelectedTab == (Int32)PenFilling.Hatch)
-			{
-				_ContourPen = new Pen(new HatchBrush(token.Hatch_Style, token.Hatch_ForeColor, token.Hatch_BackColor));
-			}
-			else if (token.SelectedTab == (Int32)PenFilling.LinearGradient && token.LinearGradient_Colors.Length > 1)
-			{
-				LinearGradientBrush brush = new LinearGradientBrush(_Path.GetBounds(), Color.Black, Color.Black, (Single)token.LinearGradient_Angle, true);
-				brush.GammaCorrection = token.LinearGradient_GammaCorrection;
+				PenFilling filling = (PenFilling)token.SelectedTab;
 
-				if (token.LinearGradient_Colors.Length == 2)
+				switch (filling)
 				{
-					brush.LinearColors = token.LinearGradient_Colors;
-				}
-				else
-				{
-					ColorBlend blend = new ColorBlend(token.LinearGradient_Colors.Length);
-					blend.Colors = token.LinearGradient_Colors;
-					Single[] positions = new Single[token.LinearGradient_Colors.Length];
-					Single step = 1.0f / positions.Length;
-					Single pos = 0.0f;
-					for (int i = 0;i < positions.Length;++i)
+					case PenFilling.Color:
 					{
-						if (i == positions.Length - 1)
+						_ContourPen = new Pen(token.Color_Color);
+						break;
+					}
+					case PenFilling.Hatch:
+					{
+						_ContourPen = new Pen(new HatchBrush(token.Hatch_Style, token.Hatch_ForeColor, token.Hatch_BackColor));
+						break;
+					}
+					case PenFilling.LinearGradient:
+					{
+						if (token.LinearGradient_Colors.Length < 2)
 						{
-							positions[i] = 1.0f;
+							// we need at least 2 colors for the gradient
+							_ContourPen = new Pen(token.Color_Color);
+							break;
+						}
+
+						LinearGradientBrush brush = new LinearGradientBrush(_Path.GetBounds(), Color.Black, Color.Black, (Single)token.LinearGradient_Angle, true);
+						brush.GammaCorrection = token.LinearGradient_GammaCorrection;
+
+						if (token.LinearGradient_Colors.Length == 2)
+						{
+							brush.LinearColors = token.LinearGradient_Colors;
 						}
 						else
 						{
-							positions[i] = pos;
+							ColorBlend blend = new ColorBlend(token.LinearGradient_Colors.Length);
+							blend.Colors = token.LinearGradient_Colors;
+							Single[] positions = new Single[token.LinearGradient_Colors.Length];
+							Single step = 1.0f / positions.Length;
+							Single pos = 0.0f;
+							for (int i = 0;i < positions.Length;++i)
+							{
+								if (i == positions.Length - 1)
+								{
+									positions[i] = 1.0f;
+								}
+								else
+								{
+									positions[i] = pos;
+								}
+								pos += step;
+							}
+							blend.Positions = positions;
+							brush.InterpolationColors = blend;
 						}
-						pos += step;
+
+						_ContourPen = new Pen(brush);
+						break;
 					}
-					blend.Positions = positions;
-					brush.InterpolationColors = blend;
+					case PenFilling.PathGradient:
+					{
+						PathGradientBrush brush = new PathGradientBrush(_Path);
+						brush.CenterColor = token.PathGradient_CenterColor;
+						if (token.PathGradient_SurroundingColors.Length > 0)
+						{
+							if (token.PathGradient_SurroundingColors.LongLength > _Path.PathData.Points.LongLength)
+							{
+								token.PathGradient_SurroundingColors = token.PathGradient_SurroundingColors.Subarray(0, _Path.PathData.Points.Length);
+							}
+							brush.SurroundColors = token.PathGradient_SurroundingColors;
+						}
+						_ContourPen = new Pen(brush);
+						break;
+					}
+					case PenFilling.Texture:
+					{
+						try
+						{
+							
+							Image texture = Image.FromFile(token.Texture_File, true);
+							TextureBrush brush = new TextureBrush(texture, token.Texture_WrapMode);
+
+							Matrix m = new Matrix();
+							m.RotateAt((Single)token.Texture_Rotation, );
+							m.Translate((Single)token.Texture_TranslationX, (Single)token.Texture_TranslationY);
+							brush.Transform = m;
+
+							_ContourPen = new Pen(brush);
+						}
+						catch (Exception)
+						{
+							_ContourPen = new Pen(token.Color_Color);
+						}
+						break;
+					}
+					default:
+					{
+						_ContourPen = new Pen(token.Color_Color);
+						break;
+					}
 				}
-				_ContourPen = new Pen(brush);
 			}
 			else
 			{
+				// as fallback we simply use normal color filling
 				_ContourPen = new Pen(token.Color_Color);
 			}
 

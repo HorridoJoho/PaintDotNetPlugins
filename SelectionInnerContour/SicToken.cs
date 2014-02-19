@@ -23,9 +23,9 @@ namespace SelectionInnerContour
 		////////////////////////////////////////////////////////////////////////////////
 		// Hatch
 		////////////////////////////////////////////////////////////////////////////////
-		public Color		Hatch_BackColor	=	Color.White;
-		public Color		Hatch_ForeColor	=	Color.White;
-		public HatchStyle	Hatch_Style		=	HatchStyle.Horizontal;
+		public Color		Hatch_BackColor	= Color.White;
+		public Color		Hatch_ForeColor	= Color.White;
+		public HatchStyle	Hatch_Style		= HatchStyle.Horizontal;
 
 		////////////////////////////////////////////////////////////////////////////////
 		// Linear Gradient
@@ -33,6 +33,21 @@ namespace SelectionInnerContour
 		public Color[]	LinearGradient_Colors			= new Color[0];
 		public Double	LinearGradient_Angle			= 0.0;
 		public Boolean	LinearGradient_GammaCorrection	= false;
+
+		////////////////////////////////////////////////////////////////////////////////
+		// Path Gradient
+		////////////////////////////////////////////////////////////////////////////////
+		public Color	PathGradient_CenterColor		= Color.White;
+		public Color[]	PathGradient_SurroundingColors	= new Color[0];
+
+		////////////////////////////////////////////////////////////////////////////////
+		// Texture
+		////////////////////////////////////////////////////////////////////////////////
+		public String	Texture_File		= String.Empty;
+		public WrapMode	Texture_WrapMode	= WrapMode.Clamp;
+		public Double	Texture_TranslationX	= 0.0;
+		public Double	Texture_TranslationY	= 0.0;
+		public Double	Texture_Rotation		= 0.0;
 
 		public override object Clone()
 		{
@@ -42,6 +57,12 @@ namespace SelectionInnerContour
 			for (Int32 i = 0;i < LinearGradient_Colors.Length;++ i)
 			{
 				clonedToken.LinearGradient_Colors[i] = LinearGradient_Colors[i];
+			}
+
+			clonedToken.PathGradient_SurroundingColors = new Color[PathGradient_SurroundingColors.Length];
+			for (Int32 i = 0;i < PathGradient_SurroundingColors.Length;++i)
+			{
+				clonedToken.PathGradient_SurroundingColors[i] = PathGradient_SurroundingColors[i];
 			}
 
 			return clonedToken;
