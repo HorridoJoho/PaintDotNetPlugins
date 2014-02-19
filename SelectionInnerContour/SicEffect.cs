@@ -171,12 +171,11 @@ namespace SelectionInnerContour
 					{
 						try
 						{
-							
 							Image texture = Image.FromFile(token.Texture_File, true);
 							TextureBrush brush = new TextureBrush(texture, token.Texture_WrapMode);
 
 							Matrix m = new Matrix();
-							m.RotateAt((Single)token.Texture_Rotation, );
+							m.Rotate((Single)token.Texture_Rotation);
 							m.Translate((Single)token.Texture_TranslationX, (Single)token.Texture_TranslationY);
 							brush.Transform = m;
 
