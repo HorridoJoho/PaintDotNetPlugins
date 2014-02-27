@@ -160,9 +160,14 @@ namespace SelectionInnerContour
 						{
 							if (token.PathGradient_SurroundingColors.LongLength > _Path.PathData.Points.LongLength)
 							{
-								token.PathGradient_SurroundingColors = token.PathGradient_SurroundingColors.Subarray(0, _Path.PathData.Points.Length);
+								Color[] newColors = new Color[_Path.PathData.Points.Length];
+								Array.Copy(token.PathGradient_SurroundingColors, newColors, _Path.PathData.Points.Length);
+								brush.SurroundColors = newColors;
 							}
-							brush.SurroundColors = token.PathGradient_SurroundingColors;
+							else
+							{
+								brush.SurroundColors = token.PathGradient_SurroundingColors;
+							}
 						}
 						_ContourPen = new Pen(brush);
 						break;
@@ -175,7 +180,9 @@ namespace SelectionInnerContour
 							TextureBrush brush = new TextureBrush(texture, token.Texture_WrapMode);
 
 							Matrix m = new Matrix();
-							m.Rotate((Single)token.Texture_Rotation);
+							RectangleF bounds = selection.GetBounds();
+							PointF rotationPt = new PointF(bounds.X + texture.Width / 2, bounds.Y + texture.Height / 2);
+							m.RotateAt((Single)token.Texture_Rotation, rotationPt);
 							m.Translate((Single)token.Texture_TranslationX, (Single)token.Texture_TranslationY);
 							brush.Transform = m;
 
